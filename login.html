@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Lucida Sans', 'Lucida Grande', Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: gold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .form-container {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      padding: 30px 20px;
+      max-width: 400px;
+      width: 90%;
+      text-align: center;
+    }
+
+    h2 {
+      color: blue;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      text-align: left;
+      margin: 10px 0 5px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: blue;
+      color: white;
+      font-weight: bold;
+      font-size: 1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-bottom: 10px;
+    }
+
+    button:hover {
+      background-color: darkblue;
+    }
+
+    p {
+      margin: 5px 0;
+    }
+
+    a {
+      color: blue;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    @media screen and (max-width: 480px) {
+      .form-container {
+        padding: 20px 15px;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+      }
+
+      button {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <form id="loginForm" class="form-container">
+    <h2>Login</h2>
+    <label for="loginUsername">Username</label>
+    <input type="text" id="loginUsername" placeholder="Username" required>
+
+    <label for="loginPassword">Password</label>
+    <input type="password" id="loginPassword" placeholder="Password" required>
+
+    <button type="submit">Login</button>
+    <p id="loginMsg"></p>
+    <p>Don't have an account? <a href="register.html">Register</a></p>
+  </form>
+
+  <script>
+    const loginForm = document.getElementById("loginForm");
+    const loginMsg = document.getElementById("loginMsg");
+
+    loginForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const username = document.getElementById("loginUsername").value.trim();
+      const password = document.getElementById("loginPassword").value;
+      const storedPassword = localStorage.getItem(username);
+
+      if (!storedPassword) {
+        loginMsg.style.color = "red";
+        loginMsg.textContent = "User not found";
+      } else if (storedPassword === password) {
+        loginMsg.style.color = "green";
+        loginMsg.textContent = "Login successful!";
+        loginForm.reset();
+        setTimeout(() => {
+          window.location.href = "product.html";
+        }, 2000);
+      } else {
+        loginMsg.style.color = "red";
+        loginMsg.textContent = "Incorrect password";
+      }
+    });
+  </script>
+
+</body>
+</html>
